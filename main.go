@@ -85,7 +85,7 @@ func main() {
 }
 
 const (
-	apAPI   = "https://retail-pz.cdn-apple.com/product-zone-prod/availability/%d-%d-%d/%d/availability.json"
+	apAPI   = "https://retail-pz.cdn-apple.com/product-zone-prod/availability/%d-%d-%d/%02d/availability.json"
 	msgTmpl = `Appointment avaliable!
 time: %v
 addr: https://www.apple.com/de/retail/instore-shopping-session/?anchorStore=rosenstrasse
@@ -142,6 +142,7 @@ func available() (time.Time, bool) {
 				continue
 			}
 
+			log.Println(e.StoreNumber, e.AppointmentsAvailable, e.FirstAvailableAppointment, e.ErrorCode)
 			if e.ErrorCode == errNotNeeded {
 				return time.Now(), true
 			}
